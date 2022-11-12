@@ -19,7 +19,7 @@ class Top10Card extends StatelessWidget {
         children: [
           MainTitle(title: title),
           LimitedBox(
-            maxHeight: 190,
+            maxHeight: 170,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: List.generate(

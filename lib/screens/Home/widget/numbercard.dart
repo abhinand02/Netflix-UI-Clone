@@ -28,8 +28,8 @@ class NumberCard extends StatelessWidget {
           ],
         ),
         Positioned(
-            left: -5,
-            bottom: -30,
+            left: 0,
+            bottom: -28,
             child: BorderedText(
                 strokeColor: whiteClr,
                 strokeWidth: 4,

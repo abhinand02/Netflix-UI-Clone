@@ -11,7 +11,7 @@ part 'fast_laugh_state.dart';
 part 'fast_laugh_bloc.freezed.dart';
 
 final dummyVideoUrls = [
-  'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+  // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"

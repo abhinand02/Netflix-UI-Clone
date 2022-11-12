@@ -23,7 +23,7 @@ class MainTitleCard extends StatelessWidget {
           BlocBuilder<HomeBloc, Homestate>(
             builder: (context, state) {
               return LimitedBox(
-                maxHeight: 190,
+                maxHeight: 160,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: List.generate(

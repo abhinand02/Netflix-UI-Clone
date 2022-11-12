@@ -10,7 +10,7 @@ class VideoListItemInheritedWidget extends InheritedWidget {
   final Widget widget;
   final Home moviedata;
 
-  const VideoListItemInheritedWidget(this.widget, this.moviedata, {super.key})
+  const VideoListItemInheritedWidget({required this.widget, required this.moviedata ,super.key})
       : super(child: widget);
 
   @override
@@ -36,7 +36,7 @@ class VideoListItem extends StatelessWidget {
     final videoUrl = dummyVideoUrls[index % dummyVideoUrls.length];
     return Stack(
       children: [
-        FastLaughVideoPlayer(videoUrl: videoUrl, inChanged: (bool) {}),
+        FastLaughVideoPlayer(videoUrl: videoUrl, inChanged: (bool isPlaying) {}),
         Positioned(
           left: 0,
           right: 0,
@@ -130,8 +130,10 @@ class _FastLaughVideoPlayerState extends State<FastLaughVideoPlayer> {
   @override
   void initState() {
     videoPlayerController = VideoPlayerController.network(widget.videoUrl);
-    videoPlayerController.initialize().then((_) {
-      setState(() {});
+    videoPlayerController.initialize().then((value) {
+      setState(() {
+        videoPlayerController.play();
+      });
       videoPlayerController.play();
     });
     super.initState();
@@ -145,11 +147,9 @@ class _FastLaughVideoPlayerState extends State<FastLaughVideoPlayer> {
       child: videoPlayerController.value.isInitialized
           ? AspectRatio(
               aspectRatio: videoPlayerController.value.aspectRatio,
-              child: VideoPlayer(
-                VideoPlayerController.network(
-                  widget.videoUrl,
+              child: VideoPlayer(videoPlayerController
                 ),
-              ))
+              )
           : const Center(
               child: CircularProgressIndicator(
                 strokeWidth: 2,

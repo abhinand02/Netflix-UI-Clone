@@ -15,14 +15,21 @@ class HotAndNewBloc extends Bloc<HotAndNewEvent, HotAndNewState> {
   HotAndNewBloc(this.hotAndNewService) : super(HotAndNewState.initial()) {
     on<ComingSoon>((event, emit) async {
 // send loading
-      emit(const HotAndNewState(
+      if (state.comingSoonList.isNotEmpty) {
+        return emit(HotAndNewState(
+            comingSoonList: state.comingSoonList,
+            everyOneIsWatchingList: state.everyOneIsWatchingList,
+            isLoading: false,
+            hasError: false));
+      }else{
+        emit(const HotAndNewState(
           comingSoonList: [],
           everyOneIsWatchingList: [],
           isLoading: true,
           hasError: false));
 
       final _result = await hotAndNewService.getHotAndNewMovieData();
-    final newState =  _result.fold((l) {
+      final newState = _result.fold((l) {
         return const HotAndNewState(
             comingSoonList: [],
             everyOneIsWatchingList: [],
@@ -37,17 +44,22 @@ class HotAndNewBloc extends Bloc<HotAndNewEvent, HotAndNewState> {
       });
 
       emit(newState);
+      } 
     });
 
-    on<EveryOneIsWatching>((event, emit) async{
-       emit(const HotAndNewState(
+    on<EveryOneIsWatching>((event, emit) async {
+      if(state.everyOneIsWatchingList.isNotEmpty){
+        return emit(HotAndNewState(comingSoonList: state.comingSoonList, everyOneIsWatchingList: state.everyOneIsWatchingList, isLoading: false, hasError: false));
+      }
+      else{
+emit(const HotAndNewState(
           comingSoonList: [],
           everyOneIsWatchingList: [],
           isLoading: true,
           hasError: false));
 
       final _result = await hotAndNewService.getHotAndNewTvData();
-    final newState =  _result.fold((l) {
+      final newState = _result.fold((l) {
         return const HotAndNewState(
             comingSoonList: [],
             everyOneIsWatchingList: [],
@@ -56,12 +68,14 @@ class HotAndNewBloc extends Bloc<HotAndNewEvent, HotAndNewState> {
       }, (HotAndNewResp r) {
         return HotAndNewState(
             comingSoonList: state.comingSoonList,
-            everyOneIsWatchingList:  r.results,
+            everyOneIsWatchingList: r.results,
             isLoading: false,
             hasError: false);
       });
 
       emit(newState);
+      }
+      
     });
   }
 }

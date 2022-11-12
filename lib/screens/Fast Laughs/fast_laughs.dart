@@ -31,10 +31,11 @@ class FastLaughs extends StatelessWidget {
           } else {
             return PageView(
               scrollDirection: Axis.vertical,
-              children: List.generate(
-                  state.videoList.length,
-                  (index) => VideoListItemInheritedWidget(
-                      VideoListItem(index: index), state.videoList[index])),
+              children: List.generate(state.videoList.length, (index) {
+                final moviedata = state.videoList[index];
+                return VideoListItemInheritedWidget(
+                    widget: VideoListItem(index: index), moviedata: moviedata);
+              }),
             );
           }
         },
